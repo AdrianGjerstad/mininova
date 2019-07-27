@@ -1,5 +1,5 @@
 //
-// mininova.js
+// basic.js
 //
 // MiniNova Version 0.1.0 (pre-Hydrogen)
 //
@@ -38,6 +38,49 @@
 
   mn.math = (mn.math||{});
 
+  mn.math.PI = Math.PI;
+  mn.math.TAU = Math.PI*2;
+  mn.math.RADIANS = Math.PI*2;
+  mn.math.DEGREES = 360;
+  mn.math.GRADIANS = 400;
+  mn.math.UNIT_ANGLE = 1;
+
+  mn.math.E = Math.E;
+  mn.math.SQRT_2 = Math.sqrt(2);
+
+  mn.math.pow = Math.pow;
+  mn.math.sqrt = Math.sqrt;
+  mn.math.cbrt = function(x) {return Math.pow(x, 1/3);}
+  mn.math.nrt = function(y, x) {return Math.pow(x, 1/y);}
+
+  mn.math.ln = Math.log;
+  mn.math.log = function(v, b) {
+    b = (b||10);
+    return Math.log(v)/Math.log(b);
+  }
+
+  mn.math.sin = Math.sin;
+  mn.math.cos = Math.cos;
+  mn.math.tan = Math.tan;
+  mn.math.asin = Math.asin;
+  mn.math.acos = Math.acos;
+  mn.math.atan = Math.atan;
+  mn.math.sinh = Math.sinh;
+  mn.math.cosh = Math.cosh;
+  mn.math.tanh = Math.tanh;
+  mn.math.asinh = Math.asinh;
+  mn.math.acosh = Math.acosh;
+  mn.math.atanh = Math.atanh;
+
+  mn.math.floor = Math.floor;
+  mn.math.ceil = Math.ceil;
+  mn.math.round = Math.round;
+  mn.math.frac = function(x){return x%1};
+  mn.math.whole = Math.floor;
+  mn.math.sign = function(x) {
+    return x < 0?-1:x===0?0:1;
+  }
+
   mn.math.Vector2 = function(x, y) {
     this.x = (x||0);
     this.y = (y||0);
@@ -49,6 +92,33 @@
 
   mn.math.Vector2.prototype.toString = function() {
     return "(" + this.x + "," + this.y + ")";
+  }
+
+  mn.math.Vector2.prototype.toPolar = function() {
+    let x = this.x, y = this.y;
+    this.x = Math.sqrt(x*x+y*y);
+    this.y = 0;
+    if(x > 0 && y > 0) {
+      this.y = Math.atan(y/x);
+    } else if(x < 0 && y > 0) {
+      this.y = Math.atan(y/-x) + Math.PI/2;
+    } else if(x < 0 && y < 0) {
+      this.y = Math.atan(y/x) + Math.PI;
+    } else if(x > 0 && y < 0) {
+      this.y = Math.atan(-y/x) + Math.PI*1.5;
+    } else if(x === 0 && y > 0) {
+      this.y = Math.PI/2;
+    } else if(x < 0 && y === 0) {
+      this.y = Math.PI;
+    } else if(x === 0 && y < 0) {
+      this.y = Math.PI*1.5;
+    }
+  }
+
+  mn.math.Vector2.prototype.toCartesian = function() {
+    let r = this.x, theta = this.y;
+    this.x = r*Math.cos(theta);
+    this.y = r*Math.sin(theta);
   }
 
   mn.math.Vector2.fromString = function(string) {
