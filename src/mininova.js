@@ -21,7 +21,8 @@
       mn.__VERSION__.PATCH + " (" + mn.__VERSION__.ELEMENT + ")";
 
   mn.__packagesLoading__ = 0;
-  mn.loadPackage = function(package) {
+  mn.loadPackage = function(package, opt) {
+    opt = (opt || {});
     mn.__packagesLoading__++;
 
     let script = document.createElement("script");
@@ -30,7 +31,7 @@
         mn.start();
       }
     };
-    script.src = "lib/mininova/" + package.replace(/\./g, "/") + ".js";
+    script.src = (opt.path||"lib/mininova/") + package.replace(/\./g, "/") + ".js";
 
     document.head.appendChild(script);
   }

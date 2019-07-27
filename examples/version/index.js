@@ -1,5 +1,5 @@
 function start() {
-  alert(MiniNova.__VERSION__.NAME);
+  MiniNova.foo()
 }
 
-MiniNova.loadPackage("mn.gchrome.console", {});
+MiniNova.loadPackage("mn.gchrome.console", {path: "../../src/"});
