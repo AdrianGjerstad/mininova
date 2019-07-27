@@ -1,7 +1,5 @@
-try{
-  window.onload = function() {
+function start() {
   alert(MiniNova.__VERSION__.NAME);
-  }
-}catch(e) {
-  alert(e.name + ": " + e.message + "\n" + e.stack);
 }
+
+MiniNova.loadPackage("mn.gchrome.console", {});
