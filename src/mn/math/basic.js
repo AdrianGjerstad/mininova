@@ -46,7 +46,7 @@
     let match_res = string.match(/\d+/g);
     if(match_res) {
       if(match_res.length >= 3) {
-        return new mn.math.Vector2(+match_res[0], +match_res[1]);
+        return new mn.math.Vector3(+match_res[0], +match_res[1], +match_res[2]);
       }
     }
   }
