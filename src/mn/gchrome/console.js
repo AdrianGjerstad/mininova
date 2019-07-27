@@ -40,6 +40,6 @@
     console.log("it works!");
   }
 
-  window.MiniNova = mn;
+  window.mn = mn;
   console.log("mn.gchrome.console MiniNova Package Installed");
-})(window.MiniNova);
+})(window.mn);

@@ -74,10 +74,10 @@
     }
   }
 
-  window.MiniNova = mn;
+  window.mn = mn;
   console.log("MININOVA BOOTED");
   console.info("MiniNova Version " + mn.__VERSION__.NAME);
 
-  console.info("If you wish, please use `MiniNova.loadPackage(\"<package>\")`"+
+  console.info("If you wish, please use `mn.loadPackage(\"<package>\")`"+
       "to load MiniNova packages into your project.");
-})(window.MiniNova);
+})(window.mn);

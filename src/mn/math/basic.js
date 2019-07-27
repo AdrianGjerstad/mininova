@@ -153,6 +153,6 @@
     }
   }
 
-  window.MiniNova = mn;
+  window.mn = mn;
   console.log("mn.math.basic MiniNova Package Installed");
-})(window.MiniNova);
+})(window.mn);
