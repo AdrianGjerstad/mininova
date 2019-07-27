@@ -1,5 +1,5 @@
 function start() {
-  MiniNova.foo()
+  alert(new MiniNova.math.Vector2(1, 2));
 }
 
-MiniNova.loadPackage("mn.gchrome.console", {path: "../../src/"});
+MiniNova.loadPackage("mn.math.basic", {path: "../../src/"});
