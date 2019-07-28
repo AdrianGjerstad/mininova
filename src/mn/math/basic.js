@@ -154,5 +154,5 @@
   }
 
   window.mn = mn;
-  console.log("mn.math.basic MiniNova Package Installed");
+  console.debug("mn.math.basic MiniNova Package Installed");
 })(window.mn);

@@ -53,12 +53,14 @@
       mn.__VERSION__.PATCH + " (" + mn.__VERSION__.ELEMENT + ")";
 
   mn.__packagesLoading__ = 0;
+  mn.__packagesLoaded__ = {};
   mn.loadPackage = function(package, opt) {
     opt = (opt || {});
     mn.__packagesLoading__++;
 
     let script = document.createElement("script");
     script.onload = function() {mn.__packagesLoading__--;
+      mn.__packagesLoaded__[package] = true;
       if(mn.__packagesLoading__ === 0) {
         mn.start();
       }
@@ -76,8 +78,8 @@
 
   window.mn = mn;
   console.log("MININOVA BOOTED");
-  console.info("MiniNova Version " + mn.__VERSION__.NAME);
+  console.debug("MiniNova Version " + mn.__VERSION__.NAME);
 
-  console.info("If you wish, please use `mn.loadPackage(\"<package>\")`"+
+  console.debug("If you wish, please use `mn.loadPackage(\"<package>\")`"+
       "to load MiniNova packages into your project.");
 })(window.mn);
