@@ -35,25 +35,108 @@
     mn = {};
   }
 
+  /**
+   * Defines the version object used for version coordination amongst packages.
+   *
+   * @type {object}
+   *
+   * @version 0
+   */
   mn.__VERSION__ = {};
 
+  /**
+   * Defines the version code used to work out versioning issues.
+   *
+   * @const {number}
+   * @example
+   * if(mn.__VERSION__.CODE>=2) {
+   *   // Your version-dependent code goes here.
+   * }
+   *
+   * @version 0
+   */
   mn.__VERSION__.CODE = 0;
+
+  /**
+   * Defines the SemVer Major part of the version.
+   *
+   * @const {number}
+   *
+   * @version 0
+   */
   mn.__VERSION__.MAJOR = 0;
+
+  /**
+   * Defines the SemVer Minor part of the version.
+   *
+   * @const {number}
+   *
+   * @version 0
+   */
   mn.__VERSION__.MINOR = 1;
+
+  /**
+   * Defines the SemVer Patch part of the version.
+   *
+   * @const {number}
+   *
+   * @version 0
+   */
   mn.__VERSION__.PATCH = 0;
 
+  /**
+   * Defines the element name of the current version.
+   *
+   * Generally, a few elements are listed ahead of the current element.
+   *
+   * @const {string}
+   *
+   * @version 0
+   */
   mn.__VERSION__.ELEMENT = (function(code) {
     return ["pre-Hydrogen", "Hydrogen", "Helium", "Lithium", "Beryllium",
         "Boron", "Carbon", "Nitrogen", "Oxygen", "Flourine", "Neon", "Sodium",
         "Magnesium", "Aluminium", "Silicon", "Phosphorus"][code];
   })(mn.__VERSION__.MAJOR);
 
+  /**
+   * Defines the version name every person can read.
+   *
+   * @const {string}
+   *
+   * @version 0
+   */
   mn.__VERSION__.NAME = mn.__VERSION__.MAJOR + "." +
       mn.__VERSION__.MINOR + "." +
       mn.__VERSION__.PATCH + " (" + mn.__VERSION__.ELEMENT + ")";
 
+  /** Shows how many packages are in the process of loading @private */
   mn.__packagesLoading__ = 0;
+  /**
+   * Shows what packages are loaded.
+   *
+   * @type {object}
+   *
+   * @version 0
+   */
   mn.__packagesLoaded__ = {};
+
+  /**
+   * Function to load packages
+   *
+   * @param {string} package The name of the package to include.
+   * @param {object} [opt={}] The list of options to use when running.
+   * @example
+   * function start() {
+   *   console.log(mn.math.PI);
+   * }
+   *
+   * mn.loadPackage("custom.math.trig", {path: "../src/custom"});
+   * // Path refers to the location of the package structure in reference to
+   * // the page that the js is being operated on.
+   *
+   * @version 0
+   */
   mn.loadPackage = function(package, opt) {
     opt = (opt || {});
     mn.__packagesLoading__++;
@@ -70,6 +153,13 @@
     document.head.appendChild(script);
   }
 
+  /**
+   * Call to manually start for any reason.
+   *
+   * @protected
+   *
+   * @version 0
+   */
   mn.start = function() {
     if(typeof window.start === "function") {
       window.start.call(mn);

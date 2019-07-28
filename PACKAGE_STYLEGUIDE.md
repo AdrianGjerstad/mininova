@@ -13,6 +13,8 @@ nested directories, and the last package section name gives the name of the
 JavaScript file. So the package at `mn.math.basic` is actually a `.js` file at
 `.../mn/math/basic.js`. The default value of `...` is `lib/mininova/`.
 
+> See the JSDoc for mn.loadPackage to learn how to use it efficiently.
+
 ## Package Barebones
 
 To start, there are two things a package must have. The first is a private
@@ -194,6 +196,10 @@ both:
  * @throws {Error} Desc. <If needed>
  * @returns {number} Desc. <If needed>
  * @typedef {Object} DataObject <Should be placed with constructor>
+ * @example // <If needed; can have multiple>
+ *
+ * @private <If used, nothing else is needed except version>
+ * @protected <Can be used by the public, but most of the time shouldn't>
  *
  * @version 0 versionCode
  * @author John Doe <Nice to have, but not needed>
@@ -218,6 +224,9 @@ both:
  * @throws {Error} Desc. <If needed>
  * @returns {number} Desc. <If needed>
  * @typedef {Object} DataObject <Should be placed with constructor>
+ * @example // <If needed; can have multiple>
+ *
+ * @private <If used, nothing else is needed>
  *
  * @see mn.math.PI <Not needed, but useful for referencing>
  */
