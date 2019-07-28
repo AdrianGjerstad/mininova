@@ -71,7 +71,8 @@
     console.debug("%c " + mn.console.__timestamp__() + " %c %c VERBOSE %c " +
       text,
       "background-color: white; color: black; font-weight: bold;", "",
-      "background-color: #44F; color: black; font-weight: bold;", "");
+      "background-color: #44F; color: black; font-weight: bold;",
+      "color: lightgray;");
   }
 
   window.mn = mn;

@@ -2,4 +2,5 @@ function start() {
   alert(new mn.math.Vector2(1, 2));
 }
 
-MiniNova.loadPackage("mn.math.basic", {path: "../../src/"});
+mn.loadPackage("mn.math.basic", {path: "../../src/"});
+mn.loadPackage("mn.console.logger", {path: "../../src/"});
