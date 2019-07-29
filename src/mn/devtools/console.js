@@ -40,8 +40,9 @@
 
   mn.devtools.__timestamp__ = function() {
     let now = new Date;
-    return "UTC "+now.getUTCFullYear()+"-"+(now.getUTCMonth()<9?"0"+
-        (now.getUTCMonth()+1):now.getUTCMonth()+1)+"-"+now.getUTCDate()+" "+
+    return "UTC&nbsp;"+now.getUTCFullYear()+"-"+(now.getUTCMonth()<9?"0"+
+        (now.getUTCMonth()+1):now.getUTCMonth()+1)+"-"+now.getUTCDate()+"&nbsp;"
+        +
         (now.getUTCHours()<10?"0"+now.getUTCHours():now.getUTCHours())+":"+
         (now.getUTCMinutes()<10?"0"+now.getUTCMinutes():now.getUTCMinutes())+
         ":"+
@@ -58,7 +59,8 @@
 
   mn.devtools.log = function(text) {
     mn.devtools.__console_html__ +=
-    "<div style='border-bottom: 1px solid black; padding: 16px;'>"+
+    "<div style='border-bottom: 1px solid black; padding: 16px;"+
+    "word-break: break-all;'>"+
     "<span style='background: white; font-weight: bold; font-color: black;'>"+
     "&nbsp;" + mn.devtools.__timestamp__() + "&nbsp;</span>&nbsp;" +
     "<span style='background: #4f4; color: black; font-weight: bold;'>"+
@@ -71,7 +73,8 @@
 
   mn.devtools.warn = function(text) {
     mn.devtools.__console_html__ +=
-    "<div style='border-bottom: 1px solid black; padding: 16px;'>"+
+    "<div style='border-bottom: 1px solid black; padding: 16px;"+
+    "word-break: break-all;'>"+
     "<span style='background: white; font-weight: bold; font-color: black;'>"+
     "&nbsp;" + mn.devtools.__timestamp__() + "&nbsp;</span>&nbsp;" +
     "<span style='background: yellow; color: black; font-weight: bold;'>"+
@@ -84,7 +87,8 @@
 
   mn.devtools.error = function(text) {
     mn.devtools.__console_html__ +=
-    "<div style='border-bottom: 1px solid black; padding: 16px;'>"+
+    "<div style='border-bottom: 1px solid black; padding: 16px;"+
+    "word-break: break-all;'>"+
     "<span style='background: white; font-weight: bold; font-color: black;'>"+
     "&nbsp;" + mn.devtools.__timestamp__() + "&nbsp;</span>&nbsp;" +
     "<span style='background: #f44; color: white; font-weight: bold;'>"+
@@ -95,9 +99,24 @@
     mn.devtools.__console__.innerHTML = mn.devtools.__console_html__;
   }
 
+  mn.devtools.__error__ = function(text) {
+    mn.devtools.__console_html__ +=
+    "<div style='border-bottom: 1px solid black; padding: 16px;"+
+    "word-break: break-all;'>"+
+    "<span style='background: white; font-weight: bold; font-color: black;'>"+
+    "&nbsp;" + mn.devtools.__timestamp__() + "&nbsp;</span>&nbsp;" +
+    "<span style='background: #f44; color: white; font-weight: bold;'>"+
+    "&nbsp;UNHANDLED ERROR&nbsp;</span>&nbsp;"+
+    "<span style='color: white; background: none;'>"+text+
+    "</span></div>";
+
+    mn.devtools.__console__.innerHTML = mn.devtools.__console_html__;
+  }
+
   mn.devtools.verbose = function(text) {
     mn.devtools.__console_html__ +=
-    "<div style='border-bottom: 1px solid black; padding: 16px;'>"+
+    "<div style='border-bottom: 1px solid black; padding: 16px;"+
+    "word-break: break-all;'>"+
     "<span style='background: white; font-weight: bold; font-color: black;'>"+
     "&nbsp;" + mn.devtools.__timestamp__() + "&nbsp;</span>&nbsp;" +
     "<span style='background: #44f; color: black; font-weight: bold;'>"+
@@ -232,7 +251,8 @@
   document.body.appendChild(mn.devtools.__window__);
 
   mn.devtools.__console_html__ =
-  "<div style='border-bottom: 1px solid black; padding: 16px;'>"+
+  "<div style='border-bottom: 1px solid black; padding: 16px;"+
+  "word-break: break-all;'>"+
   "<span style='background: white; font-weight: bold; font-color: black;'>"+
   "&nbsp;" + mn.devtools.__timestamp__() + "&nbsp;</span>&nbsp;" +
   "<span style='background: #4f4; color: black; font-weight: bold;'>"+
@@ -241,6 +261,16 @@
   "</span></div>";
 
   mn.devtools.__console__.innerHTML = mn.devtools.__console_html__;
+
+  window.onerror = function(msg, file, line, col, err) {
+    mn.devtools.__error__("<span title='Unhandled Error at " + file.substr(
+        file.lastIndexOf('/')+1) + " line " + line + " column " + col + "'>"+
+        "<br/>&nbsp;&nbsp;&nbsp;&nbsp;"+err.name + ": " +
+        err.message + "<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@" +
+        "<a target='_blank' style='color: white;' href='" + file + "'>"+file +
+        "</a>"+
+        ":l" + line + "c" + col + "</span>");
+  };
 
   window.mn = mn;
   console.debug("mn.devtools.console MiniNova Package Installed");
