@@ -49,25 +49,51 @@
   }
 
   mn.devtools.__window__ = null;
+  mn.devtools.__close__ = null;
+  mn.devtools.__minmax__ = null;
+  mn.devtools.__console__ = null;
   mn.devtools.__height__ = null;
   mn.devtools.__toolbar_height__ = 40;
 
-  document.body.addEventListener("load", function() {
-    try {
-    mn.devtools.__height__ = document.body.offsetHeight/3;
+  window.addEventListener("load", function(e) {
+    mn.devtools.__height__ = window.innerHeight/3;
     // Load console view
     mn.devtools.__window__ = document.createElement("div");
     mn.devtools.__window__.style.position = "fixed";
     mn.devtools.__window__.style.left = "0";
-    mn.devtools.__window__.style.bottom = "-" + mn.devtools.__height__ + "px";
+    mn.devtools.__window__.style.bottom = "0";//"-" + mn.devtools.__height__ + "px";
     mn.devtools.__window__.style.width = "100vw";
+    mn.devtools.__window__.style.padding = "0";
+    mn.devtools.__window__.style.margin = "0";
     mn.devtools.__window__.style.height = (mn.devtools.__height__ +
           mn.devtools.__toolbar_height__) + "px";
     mn.devtools.__window__.style.background = "#bbb";
-    mn.devtools.__window__.style.borderRadius = "10px 10px 0 0";
+    mn.devtools.__window__.style.borderRadius = mn.devtools.__toolbar_height__ +
+          "px 0 0 0";
 
+    mn.devtools.__close__ = document.createElement("div");
+    mn.devtools.__close__.style.position = "relative";
+    mn.devtools.__close__.style.right = (mn.devtools.__toolbar_height__/2)+
+          "px";
+    mn.devtools.__close__.style.top = (mn.devtools.__toolbar_height__/2)+"px";
+    mn.devtools.__close__.style.background = "red";
+    mn.devtools.__close__.style.width = "10px";
+    mn.devtools.__close__.style.height = "10px";
+    mn.devtools.__close__.innerHTML = "&times;"
+
+    mn.devtools.__console__ = document.createElement("div");
+    mn.devtools.__console__.style.background = "#ddd";
+    mn.devtools.__console__.style.width = "100vw";
+    mn.devtools.__console__.style.height = mn.devtools.__height__ + "px";
+    mn.devtools.__console__.style.position = "relative";
+    mn.devtools.__console__.style.top = mn.devtools.__toolbar_height__ + "px";
+    mn.devtools.__console__.style.left = "0";
+
+    mn.devtools.__window__.appendChild(mn.devtools.__close__);
+    //mn.devtools.__window__.appendChild(mn.devtools.__minmax__);
+
+    mn.devtools.__window__.appendChild(mn.devtools.__console__);
     document.body.appendChild(mn.devtools.__window__);
-    } catch(e) {alert(e.message);}
   });
 
   window.mn = mn;
