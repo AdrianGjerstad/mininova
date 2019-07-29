@@ -51,130 +51,196 @@
   mn.devtools.__window__ = null;
   mn.devtools.__close__ = null;
   mn.devtools.__minmax__ = null;
-  mn.devtools.__console__ = null;
+  mn.devtools.__console__ = {innerHTML: ""};
   mn.devtools.__height__ = null;
   mn.devtools.__toolbar_height__ = 40;
+  mn.devtools.__console_html__ = "";
 
-  window.addEventListener("load", function(e) {
-    mn.devtools.__height__ = window.innerHeight/3+
-        mn.devtools.__toolbar_height__;
-    // Load console view
-    mn.devtools.__window__ = document.createElement("div");
-    mn.devtools.__window__.style.position = "fixed";
-    mn.devtools.__window__.style.left = "0";
-    mn.devtools.__window__.style.bottom = "0";//"-" + mn.devtools.__height__ + "px";
-    mn.devtools.__window__.style.width = "100vw";
-    mn.devtools.__window__.style.padding = "0";
-    mn.devtools.__window__.style.margin = "0";
-    mn.devtools.__window__.style.height = (mn.devtools.__height__ +
-          mn.devtools.__toolbar_height__) + "px";
-    mn.devtools.__window__.style.background = "#bbb";
-    mn.devtools.__window__.style.borderRadius = mn.devtools.__toolbar_height__ +
-          "px 0 0 0";
-    mn.devtools.__window__.style.transition = "bottom 0.5s";
-    mn.devtools.__window__.style.webkitTransition = "bottom 0.5s";
-    mn.devtools.__window__.style.mozTransition = "bottom 0.5s";
+  mn.devtools.log = function(text) {
+    mn.devtools.__console_html__ +=
+    "<div style='border-bottom: 1px solid black; padding: 16px;'>"+
+    "<span style='background: white; font-weight: bold; font-color: black;'>"+
+    "&nbsp;" + mn.devtools.__timestamp__() + "&nbsp;</span>&nbsp;" +
+    "<span style='background: #4f4; color: black; font-weight: bold;'>"+
+    "&nbsp;LOG&nbsp;</span>&nbsp;"+
+    "<span style='color: white; background: none;'>"+text+
+    "</span></div>";
 
-    mn.devtools.__close__ = document.createElement("div");
-    mn.devtools.__close__.style.position = "absolute";
-    mn.devtools.__close__.style.left = (window.innerWidth
-          -mn.devtools.__toolbar_height__)+
-          "px";
-    mn.devtools.__close__.style.top =
-        (mn.devtools.__toolbar_height__/2-10)+"px";
-    mn.devtools.__close__.style.margin = "0";
-    mn.devtools.__close__.style.padding = "0";
-    mn.devtools.__close__.style.background = "red";
-    mn.devtools.__close__.style.width = "20px";
-    mn.devtools.__close__.style.height = "20px";
-    mn.devtools.__close__.style.fontSize = "20px";
-    mn.devtools.__close__.style.lineHeight = "20px";
-    mn.devtools.__close__.style.verticalAlign = "middle";
-    mn.devtools.__close__.style.textAlign = "center";
-    mn.devtools.__close__.style.borderRadius = "10px";
+    mn.devtools.__console__.innerHTML = mn.devtools.__console_html__;
+  }
+
+  mn.devtools.warn = function(text) {
+    mn.devtools.__console_html__ +=
+    "<div style='border-bottom: 1px solid black; padding: 16px;'>"+
+    "<span style='background: white; font-weight: bold; font-color: black;'>"+
+    "&nbsp;" + mn.devtools.__timestamp__() + "&nbsp;</span>&nbsp;" +
+    "<span style='background: yellow; color: black; font-weight: bold;'>"+
+    "&nbsp;WARNING&nbsp;</span>&nbsp;"+
+    "<span style='color: white; background: none;'>"+text+
+    "</span></div>";
+
+    mn.devtools.__console__.innerHTML = mn.devtools.__console_html__;
+  }
+
+  mn.devtools.error = function(text) {
+    mn.devtools.__console_html__ +=
+    "<div style='border-bottom: 1px solid black; padding: 16px;'>"+
+    "<span style='background: white; font-weight: bold; font-color: black;'>"+
+    "&nbsp;" + mn.devtools.__timestamp__() + "&nbsp;</span>&nbsp;" +
+    "<span style='background: #f44; color: white; font-weight: bold;'>"+
+    "&nbsp;ERROR&nbsp;</span>&nbsp;"+
+    "<span style='color: white; background: none;'>"+text+
+    "</span></div>";
+
+    mn.devtools.__console__.innerHTML = mn.devtools.__console_html__;
+  }
+
+  mn.devtools.verbose = function(text) {
+    mn.devtools.__console_html__ +=
+    "<div style='border-bottom: 1px solid black; padding: 16px;'>"+
+    "<span style='background: white; font-weight: bold; font-color: black;'>"+
+    "&nbsp;" + mn.devtools.__timestamp__() + "&nbsp;</span>&nbsp;" +
+    "<span style='background: #44f; color: black; font-weight: bold;'>"+
+    "&nbsp;VERBOSE&nbsp;</span>&nbsp;"+
+    "<span style='color: white; background: none;'>"+text+
+    "</span></div>";
+
+    mn.devtools.__console__.innerHTML = mn.devtools.__console_html__;
+  }
+
+  mn.devtools.__height__ = window.innerHeight/3+
+      mn.devtools.__toolbar_height__;
+  // Load console view
+  mn.devtools.__window__ = document.createElement("div");
+  mn.devtools.__window__.style.position = "fixed";
+  mn.devtools.__window__.style.left = "0";
+  mn.devtools.__window__.style.bottom = "0";//"-" + mn.devtools.__height__ + "px";
+  mn.devtools.__window__.style.width = "100vw";
+  mn.devtools.__window__.style.padding = "0";
+  mn.devtools.__window__.style.margin = "0";
+  mn.devtools.__window__.style.height = (mn.devtools.__height__ +
+        mn.devtools.__toolbar_height__) + "px";
+  mn.devtools.__window__.style.background = "#666";
+  mn.devtools.__window__.style.borderRadius = mn.devtools.__toolbar_height__ +
+        "px 0 0 0";
+  mn.devtools.__window__.style.transition = "bottom 0.5s";
+  mn.devtools.__window__.style.webkitTransition = "bottom 0.5s";
+  mn.devtools.__window__.style.mozTransition = "bottom 0.5s";
+
+  mn.devtools.__close__ = document.createElement("div");
+  mn.devtools.__close__.style.position = "absolute";
+  mn.devtools.__close__.style.left = (window.innerWidth
+        -mn.devtools.__toolbar_height__)+
+        "px";
+  mn.devtools.__close__.style.top =
+      (mn.devtools.__toolbar_height__/2-10)+"px";
+  mn.devtools.__close__.style.margin = "0";
+  mn.devtools.__close__.style.padding = "0";
+  mn.devtools.__close__.style.background = "red";
+  mn.devtools.__close__.style.width = "20px";
+  mn.devtools.__close__.style.height = "20px";
+  mn.devtools.__close__.style.fontSize = "20px";
+  mn.devtools.__close__.style.lineHeight = "20px";
+  mn.devtools.__close__.style.verticalAlign = "middle";
+  mn.devtools.__close__.style.textAlign = "center";
+  mn.devtools.__close__.style.borderRadius = "10px";
+  mn.devtools.__close__.style.border = "1px solid darkred";
+  mn.devtools.__close__.style.color = "darkred";
+  mn.devtools.__close__.style.cursor = "pointer";
+  mn.devtools.__close__.innerHTML = "&times;";
+  mn.devtools.__close__.title = "Close MiniNova DevTools";
+
+  mn.devtools.__close__.onmouseover = function() {
+    mn.devtools.__close__.style.border = "1px solid white";
+    mn.devtools.__close__.style.color = "white";
+  }
+
+  mn.devtools.__close__.onmouseout = function() {
     mn.devtools.__close__.style.border = "1px solid darkred";
     mn.devtools.__close__.style.color = "darkred";
-    mn.devtools.__close__.style.cursor = "pointer";
-    mn.devtools.__close__.innerHTML = "&times;";
-    mn.devtools.__close__.title = "Close MiniNova DevTools";
+  }
 
-    mn.devtools.__close__.onmouseover = function() {
-      mn.devtools.__close__.style.border = "1px solid white";
-      mn.devtools.__close__.style.color = "white";
-    }
+  mn.devtools.__close__.onclick = function() {
+    document.body.removeChild(mn.devtools.__window__);
+  }
 
-    mn.devtools.__close__.onmouseout = function() {
-      mn.devtools.__close__.style.border = "1px solid darkred";
-      mn.devtools.__close__.style.color = "darkred";
-    }
+  mn.devtools.__minmax__ = document.createElement("div");
+  mn.devtools.__minmax__.style.position = "absolute";
+  mn.devtools.__minmax__.style.left = (window.innerWidth
+        -mn.devtools.__toolbar_height__*2)+
+        "px";
+  mn.devtools.__minmax__.style.top =
+    (mn.devtools.__toolbar_height__/2-10)+"px";
+  mn.devtools.__minmax__.style.margin = "0";
+  mn.devtools.__minmax__.style.padding = "0";
+  mn.devtools.__minmax__.style.background = "yellow";
+  mn.devtools.__minmax__.style.width = "20px";
+  mn.devtools.__minmax__.style.height = "20px";
+  mn.devtools.__minmax__.style.fontSize = "30px";
+  mn.devtools.__minmax__.style.lineHeight = "20px";
+  mn.devtools.__minmax__.style.verticalAlign = "middle";
+  mn.devtools.__minmax__.style.textAlign = "center";
+  mn.devtools.__minmax__.style.borderRadius = "10px";
+  mn.devtools.__minmax__.style.border = "1px solid #aa0";
+  mn.devtools.__minmax__.style.color = "#aa0";
+  mn.devtools.__minmax__.style.cursor = "pointer";
+  mn.devtools.__minmax__.innerHTML = "-";
+  mn.devtools.__minmax__.title = "Minimize MiniNova DevTools";
 
-    mn.devtools.__close__.onclick = function() {
-      document.body.removeChild(mn.devtools.__window__);
-    }
+  mn.devtools.__minmax__.onmouseover = function() {
+    mn.devtools.__minmax__.style.border = "1px solid white";
+    mn.devtools.__minmax__.style.color = "white";
+  }
 
-    mn.devtools.__minmax__ = document.createElement("div");
-    mn.devtools.__minmax__.style.position = "absolute";
-    mn.devtools.__minmax__.style.left = (window.innerWidth
-          -mn.devtools.__toolbar_height__*2)+
-          "px";
-    mn.devtools.__minmax__.style.top =
-      (mn.devtools.__toolbar_height__/2-10)+"px";
-    mn.devtools.__minmax__.style.margin = "0";
-    mn.devtools.__minmax__.style.padding = "0";
-    mn.devtools.__minmax__.style.background = "yellow";
-    mn.devtools.__minmax__.style.width = "20px";
-    mn.devtools.__minmax__.style.height = "20px";
-    mn.devtools.__minmax__.style.fontSize = "30px";
-    mn.devtools.__minmax__.style.lineHeight = "20px";
-    mn.devtools.__minmax__.style.verticalAlign = "middle";
-    mn.devtools.__minmax__.style.textAlign = "center";
-    mn.devtools.__minmax__.style.borderRadius = "10px";
+  mn.devtools.__minmax__.onmouseout = function() {
     mn.devtools.__minmax__.style.border = "1px solid #aa0";
     mn.devtools.__minmax__.style.color = "#aa0";
-    mn.devtools.__minmax__.style.cursor = "pointer";
-    mn.devtools.__minmax__.innerHTML = "-";
-    mn.devtools.__minmax__.title = "Minimize MiniNova DevTools";
+  }
 
-    mn.devtools.__minmax__.onmouseover = function() {
-      mn.devtools.__minmax__.style.border = "1px solid white";
-      mn.devtools.__minmax__.style.color = "white";
+  mn.devtools.__minmax__.onclick = function() {
+    if(mn.devtools.__minmax__.title === "Minimize MiniNova DevTools") {
+      mn.devtools.__window__.style.bottom =
+        "-" + mn.devtools.__height__ + "px";
+      mn.devtools.__minmax__.title = "Maximize MiniNova DevTools";
+      mn.devtools.__minmax__.innerHTML = "□";
+      mn.devtools.__minmax__.style.fontSize = "20px";
+    } else if(mn.devtools.__minmax__.title === "Maximize MiniNova DevTools") {
+      mn.devtools.__window__.style.bottom = "0";
+      mn.devtools.__minmax__.title = "Minimize MiniNova DevTools";
+      mn.devtools.__minmax__.innerHTML = "-";
+      mn.devtools.__minmax__.style.fontSize = "30px";
     }
+  }
 
-    mn.devtools.__minmax__.onmouseout = function() {
-      mn.devtools.__minmax__.style.border = "1px solid #aa0";
-      mn.devtools.__minmax__.style.color = "#aa0";
-    }
+  let temp_ = mn.devtools.__console__.innerHTML;
+  mn.devtools.__console__ = document.createElement("div");
+  mn.devtools.__console__.innerHTML = temp_;
+  mn.devtools.__console__.style.background = "#333";
+  mn.devtools.__console__.style.width = "100vw";
+  mn.devtools.__console__.style.height = mn.devtools.__height__ + "px";
+  mn.devtools.__console__.style.overflowY = "auto";
+  mn.devtools.__console__.style.position = "relative";
+  mn.devtools.__console__.style.top = mn.devtools.__toolbar_height__ + "px";
+  mn.devtools.__console__.style.left = "0";
+  mn.devtools.__console__.style.borderTop = "1px solid black";
+  mn.devtools.__console__.style.fontFamily = "monospace";
 
-    mn.devtools.__minmax__.onclick = function() {
-      if(mn.devtools.__minmax__.title === "Minimize MiniNova DevTools") {
-        mn.devtools.__window__.style.bottom =
-          "-" + mn.devtools.__height__ + "px";
-        mn.devtools.__minmax__.title = "Maximize MiniNova DevTools";
-        mn.devtools.__minmax__.innerHTML = "□";
-        mn.devtools.__minmax__.style.fontSize = "20px";
-      } else if(mn.devtools.__minmax__.title === "Maximize MiniNova DevTools") {
-        mn.devtools.__window__.style.bottom = "0";
-        mn.devtools.__minmax__.title = "Minimize MiniNova DevTools";
-        mn.devtools.__minmax__.innerHTML = "-";
-        mn.devtools.__minmax__.style.fontSize = "30px";
-      }
-    }
+  mn.devtools.__window__.appendChild(mn.devtools.__close__);
+  mn.devtools.__window__.appendChild(mn.devtools.__minmax__);
 
-    mn.devtools.__console__ = document.createElement("div");
-    mn.devtools.__console__.style.background = "#ddd";
-    mn.devtools.__console__.style.width = "100vw";
-    mn.devtools.__console__.style.height = mn.devtools.__height__ + "px";
-    mn.devtools.__console__.style.position = "relative";
-    mn.devtools.__console__.style.top = mn.devtools.__toolbar_height__ + "px";
-    mn.devtools.__console__.style.left = "0";
-    mn.devtools.__console__.style.borderTop = "1px solid black";
+  mn.devtools.__window__.appendChild(mn.devtools.__console__);
+  document.body.appendChild(mn.devtools.__window__);
 
-    mn.devtools.__window__.appendChild(mn.devtools.__close__);
-    mn.devtools.__window__.appendChild(mn.devtools.__minmax__);
+  mn.devtools.__console_html__ =
+  "<div style='border-bottom: 1px solid black; padding: 16px;'>"+
+  "<span style='background: white; font-weight: bold; font-color: black;'>"+
+  "&nbsp;" + mn.devtools.__timestamp__() + "&nbsp;</span>&nbsp;" +
+  "<span style='background: #4f4; color: black; font-weight: bold;'>"+
+  "&nbsp;LOG&nbsp;</span>&nbsp;"+
+  "<span style='color: white; background: none;'>MiniNova DevTools Loaded"+
+  "</span></div>";
 
-    mn.devtools.__window__.appendChild(mn.devtools.__console__);
-    document.body.appendChild(mn.devtools.__window__);
-  });
+  mn.devtools.__console__.innerHTML = mn.devtools.__console_html__;
 
   window.mn = mn;
   console.debug("mn.devtools.console MiniNova Package Installed");
