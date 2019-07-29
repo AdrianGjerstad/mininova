@@ -73,12 +73,15 @@
 
     mn.devtools.__close__ = document.createElement("div");
     mn.devtools.__close__.style.position = "relative";
-    mn.devtools.__close__.style.right = (mn.devtools.__toolbar_height__/2)+
+    mn.devtools.__close__.style.left = (window.innerWidth
+          -mn.devtools.__toolbar_height__)+
           "px";
     mn.devtools.__close__.style.top = (mn.devtools.__toolbar_height__/2)+"px";
+    mn.devtools.__close__.style.margin = "0";
+    mn.devtools.__close__.style.padding = "0";
     mn.devtools.__close__.style.background = "red";
-    mn.devtools.__close__.style.width = "10px";
-    mn.devtools.__close__.style.height = "10px";
+    mn.devtools.__close__.style.width = "20px";
+    mn.devtools.__close__.style.height = "20px";
     mn.devtools.__close__.innerHTML = "&times;"
 
     mn.devtools.__console__ = document.createElement("div");
