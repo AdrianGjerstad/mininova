@@ -73,13 +73,15 @@
     this.__oscillator__.type = this.type;
 
     if(this.filters.length > 0)
-    for(let i = 0; i < filters.length; ++i) {
-      (this.filters[i-1].fx||this.__oscillator__).connect(this.filters[i].fx);
+    for(let i = 0; i < this.filters.length; ++i) {
+      if(i !== 0)
+        this.filters[i-1].fx.connect(this.filters[i].fx);
+      else this.__oscillator__.connect(this.filters[i].fx);
     }
 
     if(this.filters.length === 0)
       this.__oscillator__.connect(mn.sound.speakers);
-    else this.filters[this.filters.length-1].connect(mn.sound.speakers);
+    else this.filters[this.filters.length-1].fx.connect(mn.sound.speakers);
 
     this.__oscillator__.start(time);
   }
