@@ -58,6 +58,8 @@
     this.frequency = freq;
     this.type = type;
     this.__oscillator__ = null;
+
+    this.filters = [];
   }
 
   mn.sound.Oscillator.prototype.start = function(time) {
@@ -70,7 +72,14 @@
         mn.sound.__context__.currentTime);
     this.__oscillator__.type = this.type;
 
-    this.__oscillator__.connect(mn.sound.speakers);
+    if(this.filters.length > 0)
+    for(let i = 0; i < filters.length; ++i) {
+      (this.filters[i-1].fx||this.__oscillator__).connect(this.filters[i].fx);
+    }
+
+    if(this.filters.length === 0)
+      this.__oscillator__.connect(mn.sound.speakers);
+    else this.filters[this.filters.length-1].connect(mn.sound.speakers);
 
     this.__oscillator__.start(time);
   }
@@ -107,6 +116,19 @@
   mn.sound.Oscillator.prototype.setType = function(type) {
     this.type = type||"sine";
     if(this.playing()) this.__oscillator__.type = type;
+  }
+
+  mn.sound.Oscillator.prototype.appendFilter = function(filter) {
+    this.filters.push(filter);
+  }
+
+  mn.sound.Oscillator.prototype.removeFilter = function(filter) {
+    for(let i = 0; i < this.filters.length; ++i) {
+      if(this.filters[i] === filter) {
+        this.filters.splice(i, 1);
+        return;
+      }
+    }
   }
 
   window.mn = mn;
