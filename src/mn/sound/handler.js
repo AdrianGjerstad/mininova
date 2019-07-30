@@ -48,7 +48,7 @@
       return mn.sound.__context__.currentTime + secs;
     }
   } catch(e) {
-    if(mn.__loadedPackages__["mn.devtools.console"]) {
+    if(mn.__packagesLoaded__["mn.devtools.console"]) {
       mn.devtools.error("The Web Audio API is not supported in your browser.");
     } else {
       console.error("The Web Audio API is not supported in your browser.");

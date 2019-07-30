@@ -39,7 +39,7 @@
   mn.sound = (mn.sound||{});
 
   mn.sound.Oscillator = function(freq, type) {
-    if(mn.__loadedPackages__["mn.sound.note"]) {
+    if(mn.__packagesLoaded__["mn.sound.note"]) {
       if(freq instanceof mn.sound.Note) {
         freq = freq.frequency;
       }
@@ -48,7 +48,7 @@
     freq = (freq||440);
     type = (type||"sine");
 
-    if(!mn.__loadedPackages__["mn.sound.handler"]) {
+    if(!mn.__packagesLoaded__["mn.sound.handler"]) {
       alert("NOTE: The Oscillator object cannot run without the "+
           "mn.sound.handler package having been included first.");
       throw new Error("The Oscillator object cannot run without the "+
@@ -61,12 +61,52 @@
   }
 
   mn.sound.Oscillator.prototype.start = function(time) {
+    if(this.playing()) return;
+    time = (time||0);
     time = mn.sound.schedule(Math.max(time, 0));
 
     this.__oscillator__ = mn.sound.__context__.createOscillator();
     this.__oscillator__.frequency.setValueAtTime(this.frequency,
         mn.sound.__context__.currentTime);
     this.__oscillator__.type = this.type;
+
+    this.__oscillator__.connect(mn.sound.speakers);
+
+    this.__oscillator__.start(time);
+  }
+
+  mn.sound.Oscillator.prototype.stop = function(time) {
+    if(!this.playing()) return;
+    let cpy_time = time;
+    time = (time||0);
+    time = mn.sound.schedule(Math.max(time, 0));
+
+    this.__oscillator__.stop(time);
+
+    setTimeout(()=>{this.__oscillator__ = null}, cpy_time*1000+20);
+  }
+
+  mn.sound.Oscillator.prototype.playing = function() {
+    return this.__oscillator__ !== null;
+  }
+
+  mn.sound.Oscillator.prototype.setFrequency = function(freq) {
+    this.frequency = freq||440;
+    if(this.playing()) this.__oscillator__.frequency.setValueAtTime(freq,
+        mn.sound.__context__.currentTime);
+  }
+
+  mn.sound.Oscillator.prototype.rampFrequency = function(freq, time) {
+    this.frequency = freq||440;
+    time = time||0.020; // 20ms
+    if(this.playing()) this.__oscillator__.frequency.
+        exponentialRampToValueAtTime(freq,
+        mn.sound.schedule(Math.max(time, 0)));
+  }
+
+  mn.sound.Oscillator.prototype.setType = function(type) {
+    this.type = type||"sine";
+    if(this.playing()) this.__oscillator__.type = type;
   }
 
   window.mn = mn;
