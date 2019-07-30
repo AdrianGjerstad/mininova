@@ -1,11 +1,7 @@
 function start() {
-  mn.devtools.log("foo")
-  mn.devtools.warn("foo")
-  mn.devtools.error("foo")
-  mn.devtools.verbose("foo")
-  mn.devtools.verbose("foo")
-  mn.devtools.verbose("foo")
-  throw new Error("foo");
+  mn.devtools.verbose(mn.sound.speakers.constructor.name);
 }
 
 mn.loadPackage("mn.devtools.console", {path: "../../src/"});
+mn.loadPackage("mn.sound.handler", {path: "../../src/"});
+mn.loadPackage("mn.sound.note", {path: "../../src/"});
