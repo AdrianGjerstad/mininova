@@ -1,7 +1,7 @@
 function start() {
   mn.devtools.verbose(mn.sound.speakers.constructor.name);
 
-  let osc = new mn.sound.Oscillator(new mn.sound.Note("C4"));
+  let osc = new mn.sound.Oscillator(new mn.sound.Note("C4"), "sawtooth");
   let gain = new mn.sound.GainFX(4);
   let pan = new mn.sound.PanFX(mn.sound.PAN.LEFT);
   osc.appendFilter(gain);

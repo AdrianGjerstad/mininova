@@ -72,6 +72,8 @@
         mn.sound.__context__.currentTime);
     this.__oscillator__.type = this.type;
 
+    this.__oscillator__.start(time);
+
     if(this.filters.length > 0)
     for(let i = 0; i < this.filters.length; ++i) {
       if(i !== 0)
@@ -82,8 +84,6 @@
     if(this.filters.length === 0)
       this.__oscillator__.connect(mn.sound.speakers);
     else this.filters[this.filters.length-1].fx.connect(mn.sound.speakers);
-
-    this.__oscillator__.start(time);
   }
 
   mn.sound.Oscillator.prototype.stop = function(time) {
@@ -92,7 +92,20 @@
     time = (time||0);
     time = mn.sound.schedule(Math.max(time, 0));
 
-    this.__oscillator__.stop(time);
+    setTimeout(()=>{
+      if(this.filters.length > 0)
+      for(let i = 0; i < this.filters.length; ++i) {
+        if(i !== 0)
+          this.filters[i-1].fx.connect(this.filters[i].fx);
+        else this.__oscillator__.connect(this.filters[i].fx);
+      }
+
+      if(this.filters.length === 0)
+        this.__oscillator__.connect(mn.sound.speakers);
+      else this.filters[this.filters.length-1].fx.connect(mn.sound.speakers);
+
+      this.__oscillator__.stop();
+    }, cpy_time*1000);
 
     setTimeout(()=>{this.__oscillator__ = null}, cpy_time*1000+20);
   }
