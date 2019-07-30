@@ -7,11 +7,11 @@ assignees: ''
 
 ---
 
-[] Driver (mininova.js)
-[] DevTools
-[] Console
-[] Math
-[] Sound
+- [ ] Driver (mininova.js)
+- [ ] DevTools
+- [ ] Console
+- [ ] Math
+- [ ] Sound
 
 **Name the package involved in the issue (multiple if applicable):**
 E.g. 'mn.sound.oscillator'
