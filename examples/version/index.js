@@ -3,7 +3,9 @@ function start() {
 
   let osc = new mn.sound.Oscillator(new mn.sound.Note("C4"));
   let gain = new mn.sound.GainFX(4);
+  let pan = new mn.sound.PanFX(mn.sound.PAN.LEFT);
   osc.appendFilter(gain);
+  osc.appendFilter(pan);
   window.onclick = function() {
     osc.start();
     osc.rampFrequency(new mn.sound.Note("C5").frequency, 5);
@@ -19,3 +21,4 @@ mn.loadPackage("mn.sound.handler", {path: "../../src/"});
 mn.loadPackage("mn.sound.note", {path: "../../src/"});
 mn.loadPackage("mn.sound.oscillator", {path: "../../src/"});
 mn.loadPackage("mn.sound.fx.gain", {path: "../../src/"});
+mn.loadPackage("mn.sound.fx.pan", {path: "../../src/"});
