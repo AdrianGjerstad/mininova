@@ -40,8 +40,6 @@
   mn.storeddata.__default_global_namespace__ = "mininova_default";
   mn.storeddata.__saver_separator__ = ".";
 
-  mn.storeddata.__
-
   mn.storeddata.Saver = function(global_namespace, sitewide) {
     global_namespace = (global_namespace||mn.storeddata.
         __default_global_namespace__);
@@ -60,6 +58,10 @@
 
   mn.storeddata.Saver.prototype.get = function(k) {
     return localStorage.getItem(this.request_base + k||"defult");
+  }
+
+  mn.storeddata.Saver.prototype.exists = function(k) {
+    return (localStorage.getItem(this.request_base + k||"default")!==null);
   }
 
   mn.storeddata.Saver.prototype.remove = function(k) {
