@@ -41,7 +41,9 @@
   mn.devtools.__timestamp__ = function() {
     let now = new Date;
     return "UTC&nbsp;"+now.getUTCFullYear()+"-"+(now.getUTCMonth()<9?"0"+
-        (now.getUTCMonth()+1):now.getUTCMonth()+1)+"-"+now.getUTCDate()+"&nbsp;"
+        (now.getUTCMonth()+1):now.getUTCMonth()+1)+"-"+
+        (now.getUTCDate()<10?"0"+
+        (now.getUTCDate()):now.getUTCDate())+"&nbsp;"
         +
         (now.getUTCHours()<10?"0"+now.getUTCHours():now.getUTCHours())+":"+
         (now.getUTCMinutes()<10?"0"+now.getUTCMinutes():now.getUTCMinutes())+
