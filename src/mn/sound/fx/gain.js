@@ -36,8 +36,24 @@
     console.warn("You did not use mininova.js for loading!");
   }
 
+  /**
+   * The main mn.sound namespace for data that is in mn.sound.
+   *
+   * @type {object}
+   *
+   * @version 0
+   */
   mn.sound = (mn.sound||{});
 
+  /**
+   * The delay filter class to create delay on sound
+   *
+   * @constructor
+   * @param {number} secs The number of seconds to delay for.
+   * @typedef {object} mn.sound.GainFX
+   *
+   * @version 0
+   */
   mn.sound.GainFX = function(dB) {
     this.gainValue = dB;
 
@@ -50,21 +66,43 @@
     this.fx.gain.setValueAtTime(0.5+(dB/32), mn.sound.__context__.currentTime);
   }
 
+  /**
+   * Sets the amount of gain the effect has.
+   *
+   * @param {number} dB The number of decibels the gain should have
+   *
+   * @version 0
+   */
   mn.sound.GainFX.prototype.setGain = function(dB) {
     this.gainValue = dB;
     this.fx.gain.setValueAtTime(0.5+(dB/32), mn.sound.__context__.currentTime);
   }
 
+  /**
+   * Mutes the sound going through it
+   *
+   * @version 0
+   */
   mn.sound.GainFX.prototype.mute = function() {
     this.gainValue = -16;
     this.fx.gain.setValueAtTime(0, mn.sound.__context__.currentTime);
   }
 
+  /**
+   * Resets the gain to 0dB.
+   *
+   * @version 0
+   */
   mn.sound.GainFX.prototype.reset = function() {
     this.gainValue = 0;
     this.fx.gain.setValueAtTime(0.5, mn.sound.__context__.currentTime);
   }
 
+  /**
+   * Sets the gain to full blast.
+   *
+   * @version 0
+   */
   mn.sound.GainFX.prototype.full = function() {
     this.gainValue = 16;
     this.fx.gain.setValueAtTime(1, mn.sound.__context__.currentTime);

@@ -36,14 +36,37 @@
     console.warn("You did not use mininova.js for loading!");
   }
 
+  /**
+   * The main mn.sound namespace for data that is in mn.sound.
+   *
+   * @type {object}
+   *
+   * @version 0
+   */
   mn.sound = (mn.sound||{});
 
+  /**
+   * Presets for pan positioning
+   *
+   * @const {object}
+   *
+   * @version 0
+   */
   mn.sound.PAN = {
     LEFT: -1,
     CENTER: 0,
     RIGHT: 1
   }
 
+  /**
+   * The pan filter class to create stereo pan on sound.
+   *
+   * @constructor
+   * @param {number} pos The position of the pan
+   * @typedef {object} mn.sound.PanFX
+   *
+   * @version 0
+   */
   mn.sound.PanFX = function(pos) {
     this.panValue = pos;
 
@@ -56,21 +79,43 @@
     this.fx.pan.setValueAtTime(pos,  mn.sound.__context__.currentTime);
   }
 
+  /**
+   * Sets the amount of pan the effect has.
+   *
+   * @param {number} pos The position the pan should have
+   *
+   * @version 0
+   */
   mn.sound.PanFX.prototype.setPan = function(pos) {
     this.panValue = pos;
     this.fx.pan.setValueAtTime(pos,  mn.sound.__context__.currentTime);
   }
 
+  /**
+   * Sets the pan to full left
+   *
+   * @version 0
+   */
   mn.sound.PanFX.prototype.panLeft = function() {
     this.panValue = -1;
     this.fx.pan.setValueAtTime(-1,  mn.sound.__context__.currentTime);
   }
 
+  /**
+   * Sets the pan to full right
+   *
+   * @version 0
+   */
   mn.sound.PanFX.prototype.panRight = function() {
     this.panValue = 1;
     this.fx.pan.setValueAtTime(1,  mn.sound.__context__.currentTime);
   }
 
+  /**
+   * Sets the pan position in the middle
+   *
+   * @version 0
+   */
   mn.sound.PanFX.prototype.reset = function() {
     this.panValue = 0;
     this.fx.pan.setValueAtTime(0,  mn.sound.__context__.currentTime);

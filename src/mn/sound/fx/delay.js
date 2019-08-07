@@ -36,8 +36,24 @@
     console.warn("You did not use mininova.js for loading!");
   }
 
+  /**
+   * The main mn.sound namespace for data that is in mn.sound.
+   *
+   * @type {object}
+   *
+   * @version 0
+   */
   mn.sound = (mn.sound||{});
 
+  /**
+   * The delay filter class to create delay on sound
+   *
+   * @constructor
+   * @param {number} secs The number of seconds to delay for.
+   * @typedef {object} mn.sound.DelayFX
+   *
+   * @version 0
+   */
   mn.sound.DelayFX = function(secs) {
     this.delayValue = secs;
 
@@ -49,6 +65,13 @@
     this.fx = mn.sound.__context__.createDelay(secs);
   }
 
+  /**
+   * Sets the amount of delay the effect has.
+   *
+   * @param {number} secs The number of seconds the delay should have
+   *
+   * @version 0
+   */
   mn.sound.DelayFX.prototype.setDelay = function(secs) {
     this.delayValue = secs;
     this.fx = mn.sound.__context__.createDelay(secs);
