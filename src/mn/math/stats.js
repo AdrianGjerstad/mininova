@@ -36,8 +36,26 @@
     console.warn("You did not use mininova.js for loading!");
   }
 
+  /**
+   * The main mn.math namespace for data that is in mn.math.
+   *
+   * @type {object}
+   *
+   * @version 0
+   */
   mn.math = (mn.math||{});
 
+  /**
+   * A dataset with two arrays: an x-array, and a y-array.
+   *
+   * @constructor
+   * @param {Array} array The first array in the dataset object.
+   * @param {Array} [yarray=[...]] The second and optional array in the dataset.
+   * @typedef {object} mn.math.Dataset
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.math.Dataset = function(array, yarray) {
     this.data_x = array;
     this.data_y = yarray||new Array(array.length);
@@ -55,6 +73,16 @@
     }
   }
 
+  /**
+   * Takes the mean/average of the dataset given.
+   *
+   * @param {mn.math.Dataset} v The dataset to take the mean of.
+   * @returns {Array} A one (or two) element array containing the mean of x and
+   *                  y.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.math.mean = function(v) {
     let x_sum = 0;
     let y_sum;
@@ -73,6 +101,16 @@
     else return [x_sum/v.length, y_sum/v.length];
   }
 
+  /**
+   * Takes the median of the dataset given.
+   *
+   * @param {mn.math.Dataset} v The dataset to take the median of.
+   * @returns {Array} A one (or two) element array containing the median of x
+   *                  and y.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.math.median = function(v) {
     let tmp = v.data_x;
     v.data_x.sort(function(a, b){return a - b});
@@ -111,6 +149,16 @@
     else return [x_median, y_median];
   }
 
+  /**
+   * Takes the mode of the dataset given.
+   *
+   * @param {mn.math.Dataset} v The dataset to take the mode of.
+   * @returns {Array<Array>} A one (or two) element array containing the mode(s)
+   *                         of x and y.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.math.mode = function(v) {
     let tmp = v.data_x;
     v.data_x.sort(function(a, b){return a - b});
@@ -183,6 +231,16 @@
     else return [modex, modey];
   }
 
+  /**
+   * Takes the range of the dataset given.
+   *
+   * @param {mn.math.Dataset} v The dataset to take the range of.
+   * @returns {Array} A one (or two) element array containing the range of x and
+   *                  y.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.math.range = function(v) {
     let xs_min = Math.min.apply(undefined, v.data_x);
     let xs_max = Math.max.apply(undefined, v.data_x);
@@ -199,6 +257,16 @@
     else return [xs_dlt, ys_dlt];
   }
 
+  /**
+   * Takes the max of the dataset given.
+   *
+   * @param {mn.math.Dataset} v The dataset to take the max of.
+   * @returns {Array} A one (or two) element array containing the max of x and
+   *                  y.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.math.max = function(v) {
     let x = Math.max.apply(undefined, v.data_x);
     let y;
@@ -211,6 +279,16 @@
     else return [x, y];
   }
 
+  /**
+   * Takes the min of the dataset given.
+   *
+   * @param {mn.math.Dataset} v The dataset to take the min of.
+   * @returns {Array} A one (or two) element array containing the min of x and
+   *                  y.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.math.min = function(v) {
     let x = Math.min.apply(undefined, v.data_x);
     let y;
@@ -223,6 +301,15 @@
     else return [x, y];
   }
 
+  /**
+   * Takes the sort of the dataset given.
+   *
+   * @param {mn.math.Dataset} v The dataset to take the sort of.
+   * @returns {mn.math.Dataset} A dataset with sorted arrays.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.math.sort = function(v) {
     let tmp = v.data_x;
     v.data_x.sort(function(a, b){return a - b});
@@ -245,6 +332,16 @@
     else return new mn.math.Dataset(xs, ys);
   }
 
+  /**
+   * Takes the sum of the dataset given.
+   *
+   * @param {mn.math.Dataset} v The dataset to take the sum of.
+   * @returns {Array} A one (or two) element array containing the sum of x and
+   *                  y.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.math.sum = function(v) {
     let x_sum = 0;
     let y_sum;
@@ -263,6 +360,16 @@
     else return [x_sum, y_sum];
   }
 
+  /**
+   * Takes the product of the dataset given.
+   *
+   * @param {mn.math.Dataset} v The dataset to take the product of.
+   * @returns {Array} A one (or two) element array containing the product of x
+   *                  and y.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.math.prod = function(v) {
     let x_sum = 1;
     let y_sum;
@@ -281,6 +388,16 @@
     else return [x_sum, y_sum];
   }
 
+  /**
+   * Takes the sample variance of the dataset given.
+   *
+   * @param {mn.math.Dataset} v The dataset to take the variance of.
+   * @returns {Array} A one (or two) element array containing the variance of x
+   *                  and y.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.math.variance = function(v) {
     let xvar = 1/(v.length-1);
     let yvar, y_sum, y_mean;
@@ -307,6 +424,16 @@
     else return [xvar, yvar];
   }
 
+  /**
+   * Takes the poulation variance of the dataset given.
+   *
+   * @param {mn.math.Dataset} v The dataset to take the variance of.
+   * @returns {Array} A one (or two) element array containing the variance of x
+   *                  and y.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.math.popvar = function(v) {
     let xvar = 1/(v.length);
     let yvar, y_sum, y_mean;
@@ -333,6 +460,16 @@
     else return [xvar, yvar];
   }
 
+  /**
+   * Takes the sample standard deviation of the dataset given.
+   *
+   * @param {mn.math.Dataset} v The dataset to take the deviation of.
+   * @returns {Array} A one (or two) element array containing the deviation of x
+   *                  and y.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.math.deviation = function(v) {
     let variance = mn.math.variance(v);
     variance[0] = Math.sqrt(variance[0]);
@@ -344,6 +481,16 @@
     return variance;
   }
 
+  /**
+   * Takes the population standard deviation of the dataset given.
+   *
+   * @param {mn.math.Dataset} v The dataset to take the deviation of.
+   * @returns {Array} A one (or two) element array containing the deviation of x
+   *                  and y.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.math.popdev = function(v) {
     let variance = mn.math.popvar(v);
     variance[0] = Math.sqrt(variance[0]);
