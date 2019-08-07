@@ -36,10 +36,30 @@
     console.warn("You did not use mininova.js for loading!");
   }
 
+  /**
+   * The main mn.storeddata namespace for data that is in mn.storeddata.
+   *
+   * @type {object}
+   *
+   * @version 0
+   */
   mn.storeddata = (mn.storeddata||{});
+
+  /** Default global namespace value @private @version 0 */
   mn.storeddata.__default_global_namespace__ = "mininova_default";
+  /** Data position seperator @private @version 0 */
   mn.storeddata.__saver_separator__ = ".";
 
+  /**
+   * The saver class to save data in localStorage
+   *
+   * @constructor
+   * @param {string} global_namespace The "root" namespace
+   * @param {boolean} sitewide Wether or not it is for the entire site.
+   * @typedef {object} mn.storeddata.Saver
+   *
+   * @version 0
+   */
   mn.storeddata.Saver = function(global_namespace, sitewide) {
     global_namespace = (global_namespace||mn.storeddata.
         __default_global_namespace__);
@@ -52,22 +72,64 @@
     }
   }
 
+  /**
+   * Set a key-value pair in localStorage
+   *
+   * @param {string} [k="default"] The key to access the value later.
+   * @param {string} [v] The value to set it to.
+   *
+   * @version 0
+   * @see mn.storeddata.Saver.prototype.get
+   */
   mn.storeddata.Saver.prototype.set = function(k, v) {
     localStorage.setItem(this.request_base + k||"default", v||"");
   }
 
+  /**
+   * Get a value from a key in localStorage
+   *
+   * @param {string} [k="default"] The key to access the value.
+   * @return {string} The saved value or null
+   *
+   * @version 0
+   * @see mn.storeddata.Saver.prototype.set
+   */
   mn.storeddata.Saver.prototype.get = function(k) {
     return localStorage.getItem(this.request_base + k||"defult");
   }
 
+  /**
+   * See if a value exists
+   *
+   * @param {string} [k="default"] The key to access the value.
+   * @return {boolean} Wether or not the value exists
+   *
+   * @version 0
+   */
   mn.storeddata.Saver.prototype.exists = function(k) {
     return (localStorage.getItem(this.request_base + k||"default")!==null);
   }
 
+  /**
+   * Remove a key-value pair in localStorage
+   *
+   * @param {string} [k="default"] The key to access the value.
+   *
+   * @version 0
+   */
   mn.storeddata.Saver.prototype.remove = function(k) {
     localStorage.removeItem(this.request_base + (k||"default"));
   }
 
+  /**
+   * Set a key-value pair in a different page
+   *
+   * @param {string} p The path to give it to (HTML page)
+   * @param {string} [k="default"] The key to set the value to.
+   * @param {string} [v] The value to set the key to.
+   *
+   * @version 0
+   */
   mn.storeddata.Saver.prototype.give = function(p, k, v) {
     if(p === location.pathname) {
       this.set(k, v);

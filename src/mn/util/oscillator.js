@@ -36,8 +36,28 @@
     console.warn("You did not use mininova.js for loading!");
   }
 
+  /**
+   * The main mn.util namespace for data that is in mn.util.
+   *
+   * @type {object}
+   *
+   * @version 0
+   */
   mn.util = (mn.util||{});
 
+  /**
+   * The oscillator class for getting numbers without making sound
+   *
+   * @constructor
+   * @param {function|string} func The function to set it to.
+   * @param {number} freq The frequency to give the oscillator.
+   * @param {number} amp The amplitude of the wave.
+   * @param {number} off The offset of the wave from 0.
+   * @typedef {object} mn.util.Oscillator
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.util.Oscillator = function(func, freq, amp, off) {
     if(typeof func === "string") {
       if(typeof mn.util.Oscillator[func.toUpperCase()] === "function") {
@@ -56,6 +76,11 @@
     this.time = +new Date/1000;
   }
 
+  /**
+   * Get the value from the Oscillator at the current time
+   *
+   * @returns {number} The point the wave is at right now.
+   */
   mn.util.Oscillator.prototype.get = function() {
     let now = +new Date/1000;
     let delta = now-this.time;
@@ -63,10 +88,14 @@
     return this.func(delta, this.f, this.a, this.x0);
   }
 
+  /** Sine wave function with time, frequency, amplitude, and offset. @protected
+    @version 0 */
   mn.util.Oscillator.SINE = function(time, freq, amp, off) {
     return Math.sin(2*(time-off)*Math.PI*freq)*amp;
   }
 
+  /** Square wave function with time, frequency, amplitude, and offset.
+    @protected @version 0 */
   mn.util.Oscillator.SQUARE = function(time, freq, amp, off) {
     let tmp = Math.sin(2*(time-off)*Math.PI*freq);
 
@@ -77,10 +106,14 @@
     return tmp*amp;
   }
 
+  /** Triangle wave function with time, frequency, amplitude, and offset.
+    @protected @version 0 */
   mn.util.Oscillator.TRIANGLE = function(time, freq, amp, off) {
     return (2/Math.PI)*Math.asin(Math.sin(2*Math.PI*(time-off)*freq))*amp;
   }
 
+  /** Sawtooth wave function with time, frequency, amplitude, and offset.
+    @protected @version 0 */
   mn.util.Oscillator.SAWTOOTH = function(time, freq, amp, off) {
     return amp*((time-off/(1/freq))%1);
   }
