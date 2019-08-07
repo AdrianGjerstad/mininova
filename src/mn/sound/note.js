@@ -36,10 +36,35 @@
     console.warn("You did not use mininova.js for loading!");
   }
 
+  /**
+   * The main mn.sound namespace for data that is in mn.sound.
+   *
+   * @type {object}
+   *
+   * @version 0
+   */
   mn.sound = (mn.sound||{});
 
+  /**
+   * The frequency at which to tune other notes.
+   *
+   * @const {number}
+   *
+   * @version 0
+   */
   mn.sound.a4frequency = 440; // Hz
 
+  /**
+   * A note class to get frequencies from note names.
+   *
+   * @constructor
+   * @param {string} name A note name for the note to take the place of.
+   * @throws {Error} If the note didn't have a valid name.
+   * @typedef {object} mn.sound.Note
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.sound.Note = function(name) {
     let part, octave;
     if(name.length === 2) {

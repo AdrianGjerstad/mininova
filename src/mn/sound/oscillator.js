@@ -36,8 +36,22 @@
     console.warn("You did not use mininova.js for loading!");
   }
 
+  /**
+   * The main mn.sound namespace for data that is in mn.sound.
+   *
+   * @type {object}
+   *
+   * @version 0
+   */
   mn.sound = (mn.sound||{});
 
+  /**
+   * An oscillator class to generate sound.
+   *
+   * @constructor
+   * @param {number|mn.sound.Note} [freq=440] The frequency of the oscillator.
+   * @param {string} [type="sine"] The oscillation wave shape
+   */
   mn.sound.Oscillator = function(freq, type) {
     if(mn.__packagesLoaded__["mn.sound.note"]) {
       if(freq instanceof mn.sound.Note) {
@@ -62,6 +76,14 @@
     this.filters = [];
   }
 
+  /**
+   * Start the oscillator in x seconds.
+   *
+   * @param {number} [time] The number of seconds to start in
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.sound.Oscillator.prototype.start = function(time) {
     if(this.playing()) return;
     time = (time||0);
@@ -86,6 +108,14 @@
     else this.filters[this.filters.length-1].fx.connect(mn.sound.speakers);
   }
 
+  /**
+   * Stop the oscillator in x seconds.
+   *
+   * @param {number} [time] The number of seconds to stop in
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.sound.Oscillator.prototype.stop = function(time) {
     if(!this.playing()) return;
     let cpy_time = time;
@@ -110,16 +140,41 @@
     setTimeout(()=>{this.__oscillator__ = null}, cpy_time*1000+20);
   }
 
+  /**
+   * Check if the oscillator is playing.
+   *
+   * @returns {boolean} Wether or not the oscillator is playing.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.sound.Oscillator.prototype.playing = function() {
     return this.__oscillator__ !== null;
   }
 
+  /**
+   * Set the oscillator frequency
+   *
+   * @param {number} [freq=440] The frequency to set the oscillator to.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.sound.Oscillator.prototype.setFrequency = function(freq) {
     this.frequency = freq||440;
     if(this.playing()) this.__oscillator__.frequency.setValueAtTime(freq,
         mn.sound.__context__.currentTime);
   }
 
+  /**
+   * Do a continuous note slide to a frequency over x seconds
+   *
+   * @param {number} [freq=440] The frequency to ramp the oscillator to.
+   * @param {number} [time=0.02] The number of seconds to ramp over.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.sound.Oscillator.prototype.rampFrequency = function(freq, time) {
     this.frequency = freq||440;
     time = time||0.020; // 20ms
@@ -128,15 +183,41 @@
         mn.sound.schedule(Math.max(time, 0)));
   }
 
+  /**
+   * Set the oscillator type
+   *
+   * @param {string} [type="sine"] The type to set the oscillator to.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.sound.Oscillator.prototype.setType = function(type) {
     this.type = type||"sine";
     if(this.playing()) this.__oscillator__.type = type;
   }
 
+  /**
+   * Add a filter to the oscillator
+   *
+   * @param {mn.sound.GainFX|mn.sound.PanFX} filter The filter to add to the
+   *                                                oscillator.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.sound.Oscillator.prototype.appendFilter = function(filter) {
     this.filters.push(filter);
   }
 
+  /**
+   * Remove a filter from the oscillator
+   *
+   * @param {mn.sound.GainFX|mn.sound.PanFX} filter The filter to remove from
+   *                                                the oscillator.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   */
   mn.sound.Oscillator.prototype.removeFilter = function(filter) {
     for(let i = 0; i < this.filters.length; ++i) {
       if(this.filters[i] === filter) {

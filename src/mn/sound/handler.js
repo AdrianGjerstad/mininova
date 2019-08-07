@@ -36,14 +36,25 @@
     console.warn("You did not use mininova.js for loading!");
   }
 
+  /**
+   * The main mn.sound namespace for data that is in mn.sound.
+   *
+   * @type {object}
+   *
+   * @version 0
+   */
   mn.sound = (mn.sound||{});
 
   try {
     let AudioContext = window.AudioContext||window.webkitAudioContext;
+    /** The underlying web audio context @private @version 0 */
     mn.sound.__context__ = new AudioContext();
 
+    /** The underlying destination for the context @protected @version 0 */
     mn.sound.speakers = mn.sound.__context__.destination;
 
+    /** Schedule an event from this time based on the time that the audio
+      context has. @protected @version 0 */
     mn.sound.schedule = function(secs) {
       return mn.sound.__context__.currentTime + secs;
     }
