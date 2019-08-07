@@ -36,8 +36,50 @@
     console.warn("You did not use mininova.js for loading!");
   }
 
+  /**
+   * The underlying wrapper for any dom element.
+   *
+   * This is where every chainable function for the element object exists.
+   *
+   * @constructor
+   * @param {HTMLElement} nativeElement The underlying HTMLElement object.
+   * @throws {TypeError} If nativeElement was not of type HTMLElement.
+   * @typedef {Object} mn.dom.MiniNovaDOMElement
+   *
+   * @protected
+   *
+   * @version 0
+   */
+
+  /**
+   * The main mn.dom namespace for data that is in mn.dom.
+   *
+   * @type {object}
+   *
+   * @version 0
+   */
   mn.dom = (mn.dom||{});
 
+  /**
+   * Create an element and put it on the page.
+   *
+   * Synthesis is defined as the process of creating something, it doesn't have
+   * to be music.
+   *
+   * @param {string} tagName The name of the tag to be created.
+   * @param {...string} attrList A series of parameters that define the
+   *                             attributes on the element.
+   * @returns {mn.dom.MiniNovaDOMElement} The new element
+   * @throws {Error} If the package mn.dom.element is not loaded.
+   * @example
+   * mn.dom.synthesize("div", "style", "background: red;", "width", "50")
+   * // Creates
+   * // <div style="background: red;" width="50"></div>
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   * @see HTMLElement
+   */
   mn.dom.synthesize = function(tagName, ...attrList) {
     if(!mn.__packagesLoaded__["mn.dom.element"]) {
       throw new Error("Cannot create elements without mn.dom.element.");

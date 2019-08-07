@@ -36,8 +36,22 @@
     console.warn("You did not use mininova.js for loading!");
   }
 
+  /**
+   * The main mn.devtools namespace for data that is in mn.devtools.
+   *
+   * @type {object}
+   *
+   * @version 0
+   */
   mn.devtools = (mn.devtools||{});
 
+  /**
+   * Gives the date and time in UTC and ISO format.
+   *
+   * @private
+   *
+   * @version 0
+   */
   mn.devtools.__timestamp__ = function() {
     let now = new Date;
     return "UTC&nbsp;"+now.getUTCFullYear()+"-"+(now.getUTCMonth()<9?"0"+
@@ -51,14 +65,32 @@
         (now.getUTCSeconds()<10?"0"+now.getUTCSeconds():now.getUTCSeconds());
   }
 
+  /** Window of devtools area. @private @version 0 */
   mn.devtools.__window__ = null;
+  /** Close button of devtools area. @private @version 0 */
   mn.devtools.__close__ = null;
+  /** Minimize-maximize button of devtools area. @private @version 0 */
   mn.devtools.__minmax__ = null;
+  /** Console of devtools area. @private @version 0 */
   mn.devtools.__console__ = {innerHTML: ""};
+  /** Height of devtools area. @private @version 0 */
   mn.devtools.__height__ = null;
+  /** Toolbar height. @private @version 0 */
   mn.devtools.__toolbar_height__ = 40;
+  /** Console content. @private @version 0 */
   mn.devtools.__console_html__ = "";
 
+  /**
+   * Shows a log message in the browser devtools window.
+   *
+   * @param {string} text The text to be logged
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   * @see mn.devtools.warn
+   * @see mn.devtools.error
+   * @see mn.devtools.verbose
+   */
   mn.devtools.log = function(text) {
     mn.devtools.__console_html__ +=
     "<div style='border-bottom: 1px solid black; padding: 16px;"+
@@ -73,6 +105,17 @@
     mn.devtools.__console__.innerHTML = mn.devtools.__console_html__;
   }
 
+  /**
+   * Shows a warning message in the browser devtools window.
+   *
+   * @param {string} text The text to warn with
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   * @see mn.devtools.log
+   * @see mn.devtools.error
+   * @see mn.devtools.verbose
+   */
   mn.devtools.warn = function(text) {
     mn.devtools.__console_html__ +=
     "<div style='border-bottom: 1px solid black; padding: 16px;"+
@@ -87,6 +130,20 @@
     mn.devtools.__console__.innerHTML = mn.devtools.__console_html__;
   }
 
+  /**
+   * Shows a static error message in the browser devtools window.
+   *
+   * Static refers to the fact that it didn't come from a real error or
+   * error-descendant object.
+   *
+   * @param {string} text The text to show with the error
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   * @see mn.devtools.log
+   * @see mn.devtools.warn
+   * @see mn.devtools.verbose
+   */
   mn.devtools.error = function(text) {
     mn.devtools.__console_html__ +=
     "<div style='border-bottom: 1px solid black; padding: 16px;"+
@@ -101,6 +158,15 @@
     mn.devtools.__console__.innerHTML = mn.devtools.__console_html__;
   }
 
+  /**
+   * Shows an error message in the browser devtools window.
+   *
+   * NOTE: This function is based on a window event named "onerror".
+   *
+   * @private
+   *
+   * @version 0
+   */
   mn.devtools.__error__ = function(text) {
     mn.devtools.__console_html__ +=
     "<div style='border-bottom: 1px solid black; padding: 16px;"+
@@ -115,6 +181,17 @@
     mn.devtools.__console__.innerHTML = mn.devtools.__console_html__;
   }
 
+  /**
+   * Shows a verbose message in the browser devtools window.
+   *
+   * @param {string} text The text to be shown in the verbose output.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   * @see mn.devtools.log
+   * @see mn.devtools.warn
+   * @see mn.devtools.error
+   */
   mn.devtools.verbose = function(text) {
     mn.devtools.__console_html__ +=
     "<div style='border-bottom: 1px solid black; padding: 16px;"+

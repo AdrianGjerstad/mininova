@@ -36,8 +36,22 @@
     console.warn("You did not use mininova.js for loading!");
   }
 
+  /**
+   * The main mn.console namespace for data that is in mn.console.
+   *
+   * @type {object}
+   *
+   * @version 0
+   */
   mn.console = (mn.console||{});
 
+  /**
+   * Gives the date and time in UTC and ISO format.
+   *
+   * @private
+   *
+   * @version 0
+   */
   mn.console.__timestamp__ = function() {
     let now = new Date;
     return "UTC "+now.getUTCFullYear()+"-"+(now.getUTCMonth()<9?"0"+
@@ -48,12 +62,34 @@
         (now.getUTCSeconds()<10?"0"+now.getUTCSeconds():now.getUTCSeconds());
   }
 
+  /**
+   * Makes a call to console.log with formatting to make things easier.
+   *
+   * @param {string} text The text to be used to log.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   * @see mn.console.warn
+   * @see mn.console.error
+   * @see mn.console.verbose
+   */
   mn.console.log = function(text) {
     console.log("%c " + mn.console.__timestamp__() + " %c %c LOG %c " + text,
       "background-color: white; color: black; font-weight: bold;", "",
       "background-color: #4F4; color: black; font-weight: bold;", "");
   }
 
+  /**
+   * Shows warning message in browser-built devtoools.
+   *
+   * @param {string} text The text to be used to warn.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   * @see mn.console.log
+   * @see mn.console.error
+   * @see mn.console.verbose
+   */
   mn.console.warn = function(text) {
     console.log("%c " + mn.console.__timestamp__() + " %c %c WARNING %c " +
       text,
@@ -61,12 +97,40 @@
       "background-color: yellow; color: black; font-weight: bold;", "");
   }
 
+  /**
+   * Shows static error message in browser-built devtoools.
+   *
+   * Static refers to the fact that the message is not created from a true error
+   * or error-descendant object.
+   *
+   * @param {string} text The text to be used to show an error.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   * @see mn.console.log
+   * @see mn.console.warn
+   * @see mn.console.verbose
+   */
   mn.console.error = function(text) {
     console.log("%c " + mn.console.__timestamp__() + " %c %c ERROR %c " + text,
       "background-color: white; color: black; font-weight: bold;", "",
       "background-color: red; color: white; font-weight: bold;", "");
   }
 
+  /**
+   * Creates verbose output that is filterable by browser-built devtools.
+   *
+   * A verbose message is a debug or extra-info message that may or may not be
+   * necessary.
+   *
+   * @param {string} text The text to be used to show verbose output.
+   *
+   * @version 0
+   * @author Adrian Gjerstad <github@AdrianGjerstad>
+   * @see mn.console.log
+   * @see mn.console.warn
+   * @see mn.console.error
+   */
   mn.console.verbose = function(text) {
     console.debug("%c " + mn.console.__timestamp__() + " %c %c VERBOSE %c " +
       text,
